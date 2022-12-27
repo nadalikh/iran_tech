@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /**
+         * This macro is used to casting the json which is returned
+         * by the web service as collection to eloquent entity.
+         */
         Collection::macro('castToCoordinate', function (&$coordinate) {
             $coordinate->latitude = $this['lat'];
             $coordinate->longitude = $this['lon'];

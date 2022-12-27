@@ -7,6 +7,16 @@ use Illuminate\Support\Facades\Log;
 
 class msApiController extends Controller
 {
+    /**
+     * @param $lat
+     * @param $lon
+     * @param $format
+     * @return \Psr\Http\Message\ResponseInterface|void
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * Is used for calling api.
+     * It's private because only the msApiController can access this method
+     * from it slef.
+     */
 
     private function sendRequest($lat, $lon, $format){
         $client = new \GuzzleHttp\Client();
@@ -20,6 +30,15 @@ class msApiController extends Controller
             return $req;
     }
 
+    /**
+     * @param $lat
+     * @param $lon
+     * @param $format
+     * @return mixed|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * Is used to handle response of calling api then send a
+     * suitable feedback to user.
+     */
     public function temperature24H($lat, $lon, $format){
 
         //Convert the json to object
@@ -36,6 +55,12 @@ class msApiController extends Controller
         }
         return $content;
     }
+
+    /**
+     * @return void
+     * Watch the coordinate table records.
+     * we store temperature in this table for specific coordinate.
+     */
     public function getAllTemperature(){
         dd(Coordinate::all());
     }
